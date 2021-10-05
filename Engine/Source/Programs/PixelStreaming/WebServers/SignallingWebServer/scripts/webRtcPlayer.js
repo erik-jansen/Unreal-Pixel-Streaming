@@ -125,6 +125,8 @@
                     // (100 mbps means we don't restrict encoder at all)
                     // after we `setLocalDescription` because other browsers are not c happy to see google-specific config
             		offer.sdp = offer.sdp.replace(/(a=fmtp:\d+ .*level-asymmetry-allowed=.*)\r\n/gm, "$1;x-google-start-bitrate=15000;x-google-max-bitrate=100000\r\n");
+                    // Chrome 94+ doesn't understand extmap-allow-mixed. So remove it.
+                    offer.sdp = offer.sdp.replace(/(a=extmap-allow-mixed)\r\n/gm, "");
             		self.onWebRtcOffer(offer);
                 }
             },
